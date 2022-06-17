@@ -118,7 +118,7 @@ export default function Home({ users }) {
 
 export async function getServerSideProps(context) {
   try {
-    const response = await axios.get("/api/users/showall");
+    const response = await axios.get(`${process.env.VERCEL_URL}/api/users/showall`);
     return {
       props: {
         users: response.data.users,
