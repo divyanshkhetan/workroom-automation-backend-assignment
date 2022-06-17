@@ -11,7 +11,7 @@ export default async function deleteUser(req, res) {
         const user = await User.findOne({email: req.body.email});
         if(!user) {
             console.log("User not found");
-            return res.status(400).json({
+            return res.status(200).json({
                 success: false,
                 message: "User not found",
             });

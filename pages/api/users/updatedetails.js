@@ -18,7 +18,7 @@ export default async function updateUser(req, res) {
       });
     }
     
-    if (await passwordHandler.comparePassword(req.body.oldPassword, user.password)) {
+    if (!(await passwordHandler.comparePassword(req.body.oldPassword, user.password))) {
       console.log("Password does not match");
       return res.status(400).json({
         success: false,

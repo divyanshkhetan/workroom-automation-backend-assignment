@@ -1,0 +1,111 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modalMain {
+    position:fixed;
+    background: white;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+
+  .closeButton{
+    display: flex;
+    width: 100%;
+    justify-content: right;
+  }
+
+  .modalContent{
+    margin: 1rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 1rem;
+  }
+
+  .headingPanel{
+    text-align: center;
+    margin: 0.5rem;
+    padding: 0px;
+  }
+
+  .headingPanel h1{
+    margin: 0px;
+  }
+
+  .formGroup{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .formGroup label{
+    font-weight: 700;
+  }
+
+  .formField{
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    min-width: 70vw;
+    outline: none;
+    border: 1px solid var(--border-tertiary);
+  }
+
+  .formField:focus{
+    border: 1px solid var(--border-main);
+  }
+
+  .formGroupRadio{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+
+  .errorMessage{
+    color: var(--color-error);
+    margin-bottom: 0.25rem;
+    text-align: center;
+  }
+
+  .errorMessage span{
+    margin-right: 5px;
+  }
+
+  .successMessage{
+    color: var(--color-success);
+    margin-bottom: 0.25rem;
+    text-align: center;
+  }
+
+  .successMessage span{
+    transform: translateY(3px);
+    margin-right: 5px;
+  }
+
+  .successMessage span img{
+    transform: translateY(1px);
+  }
+
+  @media(min-width: 680px){
+    .formField{
+      min-width: 20rem;
+      max-width: 25vw;
+    }
+
+    .submitButton{
+      min-width: 20rem;
+      max-width: 25vw;
+    }
+  }
