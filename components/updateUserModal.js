@@ -1,12 +1,15 @@
 import styles from "./modal.module.css";
 import Image from "next/image";
 import { useState } from "react";
-const classnames = require("classnames");
 const axios = require("axios");
+const classnames = require("classnames");
+
+const { passwordValidator } = require("../utils/passwordValidator");
 
 import { useRouter } from "next/router";
 
 export default function NewUserModal({ show, setShow, user }) {
+  console.log(user);
   const showHideClassName = show ? "display-block" : "display-none";
   const [fname, setFname] = useState(user.firstName);
   const [lname, setLname] = useState(user.lastName);
@@ -19,27 +22,6 @@ export default function NewUserModal({ show, setShow, user }) {
   const router = useRouter();
   function modalHandler() {
     setShow(false);
-  }
-
-  function passwordValidator(password) {
-    if (password.length < 8) {
-      setErrorMessage("Password must be atleast 8 characters");
-      return false;
-    } else if (password.search(/[a-z]/) < 0) {
-      setErrorMessage("Password must contain atleast one lowercase letter");
-      return false;
-    } else if (password.search(/[A-Z]/) < 0) {
-      setErrorMessage("Password must contain atleast one uppercase letter");
-      return false;
-    } else if (password.search(/[0-9]/) < 0) {
-      setErrorMessage("Password must contain atleast one number");
-      return false;
-    } else if (password.search(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/) < 0) {
-      setErrorMessage("Password must contain atleast one special character");
-      return false;
-    } else {
-      return true;
-    }
   }
 
   function formValidator(userData) {
@@ -58,9 +40,12 @@ export default function NewUserModal({ show, setShow, user }) {
     } else if (userData.profession === null) {
       setErrorMessage("Profession cannot be empty");
       return false;
-    } else if (!passwordValidator(userData.password)) {
-      return false;
     } else {
+      const passwordIsValid = passwordValidator(userData.password);
+      if(!passwordIsValid.success) {
+        setErrorMessage(passwordIsValid.message);
+        return false;
+      }
       return true;
     }
   }
@@ -69,7 +54,7 @@ export default function NewUserModal({ show, setShow, user }) {
     router.replace(router.asPath);
   }
 
-  function signupHandler(e) {
+  function updateHandler(e) {
     e.preventDefault();
     setErrorMessage(null);
     const userData = {
@@ -82,7 +67,7 @@ export default function NewUserModal({ show, setShow, user }) {
     };
     if (formValidator(userData)) {
       axios
-        .post("/api/users/updatedetails", userData)
+        .post("http://localhost:3000/api/users/updatedetails", userData)
         .then((res) => {
           if (res.data.success) {
             setSuccessMessage(res.data.message);
@@ -222,7 +207,7 @@ export default function NewUserModal({ show, setShow, user }) {
               <button
                 type="button"
                 className="btn btn-primary mx-0"
-                onClick={signupHandler}
+                onClick={updateHandler}
               >
                 Update User
               </button>

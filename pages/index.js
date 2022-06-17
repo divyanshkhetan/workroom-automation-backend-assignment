@@ -12,19 +12,21 @@ export default function Home({ users }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [newUserModal, setNewUserModal] = useState(false);
   const [updateUserModal, setUpdateUserModal] = useState(false);
+  const [userIdx, setUserIdx] = useState(0);
   const router = useRouter();
  
   const refreshData = () => {
     router.replace(router.asPath);
   }
 
-  function updateHandler(user) {
+  function updateHandler( idx) {
     setUpdateUserModal(true);
     setDeleteModal(false);
     setNewUserModal(false);
+    setUserIdx(idx);
   }
 
-  function deleteHandler(e) {
+  function deleteHandler( idx) {
     setDeleteModal(true);
     setUpdateUserModal(false);
     setNewUserModal(false);
@@ -49,7 +51,7 @@ export default function Home({ users }) {
       <nav
         className="navbar bg-light"
         style={{ borderBottom: "2px solid black" }}
-      >
+        >
         <div className="container-fluid" style={{cursor: 'pointer'}}>
           <h2 onClick={() => refreshData()}>Workroom Automation</h2>
           <button type="button" className="btn btn-primary" onClick={() => newUserHandler()}>
@@ -59,6 +61,8 @@ export default function Home({ users }) {
       </nav>
 
       {newUserModal ? ( <NewUserModal show={newUserModal} setShow={setNewUserModal} /> ) : null}
+      {deleteModal ? ( <DeleteUserModal show={deleteModal} setShow={setDeleteModal} user={users[userIdx]}  /> ) : null}
+      {updateUserModal ? ( <UpdateUserModal show={updateUserModal} setShow={setUpdateUserModal} user={users[userIdx]} /> ) : null}
 
       <table className="table table-striped text-center">
         <thead>
@@ -86,19 +90,17 @@ export default function Home({ users }) {
                   <button
                     type="button"
                     className="btn btn-outline-primary btn-sm"
-                    onClick={() => updateHandler(user)}
+                    onClick={() => updateHandler(index)}
                     >
                     Update
                   </button>
                   <button
                     type="button"
                     className="btn btn-danger btn-sm"
-                    onClick={() => deleteHandler(user)}
+                    onClick={() => deleteHandler(index)}
                     >
                     Delete
                   </button>
-                    {deleteModal ? ( <DeleteUserModal show={deleteModal} setShow={setDeleteModal} user={user}  /> ) : null}
-                    {updateUserModal ? ( <UpdateUserModal show={updateUserModal} setShow={setUpdateUserModal} user={user} /> ) : null}
                 </td>
               </tr>
             );

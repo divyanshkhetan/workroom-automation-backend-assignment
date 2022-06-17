@@ -1,10 +1,12 @@
-import styles from "./modal.module.css";
 import Image from "next/image";
+import styles from "./modal.module.css";
 import { useRef, useState } from "react";
-const classnames = require("classnames");
 const axios = require("axios");
-
+const classnames = require("classnames");
 import { useRouter } from "next/router";
+
+const { passwordValidator } = require("../utils/passwordValidator");
+
 
 export default function NewUserModal({ show, setShow }) {
   const showHideClassName = show ? "display-block" : "display-none";
@@ -19,27 +21,6 @@ export default function NewUserModal({ show, setShow }) {
   const router = useRouter();
   function modalHandler() {
     setShow(false);
-  }
-
-  function passwordValidator(password) {
-    if (password.length < 8) {
-      setErrorMessage("Password must be atleast 8 characters");
-      return false;
-    } else if (password.search(/[a-z]/) < 0) {
-      setErrorMessage("Password must contain atleast one lowercase letter");
-      return false;
-    } else if (password.search(/[A-Z]/) < 0) {
-      setErrorMessage("Password must contain atleast one uppercase letter");
-      return false;
-    } else if (password.search(/[0-9]/) < 0) {
-      setErrorMessage("Password must contain atleast one number");
-      return false;
-    } else if (password.search(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/) < 0) {
-      setErrorMessage("Password must contain atleast one special character");
-      return false;
-    } else {
-      return true;
-    }
   }
 
   function formValidator(userData) {
@@ -58,9 +39,12 @@ export default function NewUserModal({ show, setShow }) {
     } else if (userData.profession === null) {
       setErrorMessage("Profession cannot be empty");
       return false;
-    } else if (!passwordValidator(userData.password)) {
-      return false;
     } else {
+      const passwordIsValid = passwordValidator(userData.password);
+      if(!passwordIsValid.success) {
+        setErrorMessage(passwordIsValid.message);
+        return false;
+      }
       return true;
     }
   }
