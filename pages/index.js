@@ -1,35 +1,35 @@
 import Head from "next/head";
 import axios from "axios";
 import { useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 import DeleteUserModal from "../components/deleteUserModal";
 import NewUserModal from "../components/newUserModal";
 import UpdateUserModal from "../components/updateUserModal";
 
 export default function Home({ users }) {
-
   const [deleteModal, setDeleteModal] = useState(false);
   const [newUserModal, setNewUserModal] = useState(false);
   const [updateUserModal, setUpdateUserModal] = useState(false);
   const [userIdx, setUserIdx] = useState(0);
   const router = useRouter();
- 
+
   const refreshData = () => {
     router.replace(router.asPath);
-  }
+  };
 
-  function updateHandler( idx) {
+  function updateHandler(idx) {
     setUpdateUserModal(true);
     setDeleteModal(false);
     setNewUserModal(false);
     setUserIdx(idx);
   }
 
-  function deleteHandler( idx) {
+  function deleteHandler(idx) {
     setDeleteModal(true);
     setUpdateUserModal(false);
     setNewUserModal(false);
+    setUserIdx(idx);
   }
 
   function newUserHandler() {
@@ -37,8 +37,6 @@ export default function Home({ users }) {
     setDeleteModal(false);
     setUpdateUserModal(false);
   }
-  
-  
 
   return (
     <div>
@@ -51,18 +49,36 @@ export default function Home({ users }) {
       <nav
         className="navbar bg-light"
         style={{ borderBottom: "2px solid black" }}
-        >
-        <div className="container-fluid" style={{cursor: 'pointer'}}>
+      >
+        <div className="container-fluid" style={{ cursor: "pointer" }}>
           <h2 onClick={() => refreshData()}>Workroom Automation</h2>
-          <button type="button" className="btn btn-primary" onClick={() => newUserHandler()}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => newUserHandler()}
+          >
             Add User
           </button>
         </div>
       </nav>
 
-      {newUserModal ? ( <NewUserModal show={newUserModal} setShow={setNewUserModal} /> ) : null}
-      {deleteModal ? ( <DeleteUserModal show={deleteModal} setShow={setDeleteModal} user={users[userIdx]}  /> ) : null}
-      {updateUserModal ? ( <UpdateUserModal show={updateUserModal} setShow={setUpdateUserModal} user={users[userIdx]} /> ) : null}
+      {newUserModal ? (
+        <NewUserModal show={newUserModal} setShow={setNewUserModal} />
+      ) : null}
+      {deleteModal ? (
+        <DeleteUserModal
+          show={deleteModal}
+          setShow={setDeleteModal}
+          user={users[userIdx]}
+        />
+      ) : null}
+      {updateUserModal ? (
+        <UpdateUserModal
+          show={updateUserModal}
+          setShow={setUpdateUserModal}
+          user={users[userIdx]}
+        />
+      ) : null}
 
       <table className="table table-striped text-center">
         <thead>
@@ -91,14 +107,14 @@ export default function Home({ users }) {
                     type="button"
                     className="btn btn-outline-primary btn-sm"
                     onClick={() => updateHandler(index)}
-                    >
+                  >
                     Update
                   </button>
                   <button
                     type="button"
                     className="btn btn-danger btn-sm"
                     onClick={() => deleteHandler(index)}
-                    >
+                  >
                     Delete
                   </button>
                 </td>
@@ -111,14 +127,16 @@ export default function Home({ users }) {
         <div className="alert alert-danger text-center" role="alert">
           No users found
         </div>
-        ) : null}
+      ) : null}
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
   try {
-    const response = await axios.get(`${process.env.VERCEL_URL}/api/users/showall`);
+    const response = await axios.get(
+      `http://${process.env.VERCEL_URL}/api/users/showall`
+    );
     return {
       props: {
         users: response.data.users,
@@ -129,6 +147,6 @@ export async function getServerSideProps(context) {
       props: {
         users: [],
       },
-    }
+    };
   }
 }
