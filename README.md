@@ -3,8 +3,9 @@
 </h1>
 
 <div align="center">
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/dwZ7s4MT8iI/0.jpg)](https://youtu.be/dwZ7s4MT8iI "Workroom Automation Intern Demo")
+    <a target="_blank" href="https://www.youtube.com/watch?v=dwZ7s4MT8iI"><img src="https://img.youtube.com/vi/dwZ7s4MT8iI/0.jpg" alt="Workroom Automation Internship Demo Video: https://youtu.be/dwZ7s4MT8iI"></a>
 </div>
+
 
 ## Technology Stack
 
