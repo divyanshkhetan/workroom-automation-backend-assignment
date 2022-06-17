@@ -2,7 +2,7 @@
     Workroom Automation Internship Assignment
 </h1>
 
-![IMAGE ALT TEXT](http://img.youtube.com/vi/dwZ7s4MT8iI/0.jpg)](https://youtu.be/dwZ7s4MT8iI "Workroom Automation Intern Demo")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/dwZ7s4MT8iI/0.jpg)](https://youtu.be/dwZ7s4MT8iI "Workroom Automation Intern Demo")
 
 ## Technology Stack
 
