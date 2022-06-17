@@ -11,7 +11,6 @@ export default async function updateUser(req, res) {
     console.log("Updating user...");
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      console.log("User not found");
       return res.status(400).json({
         success: false,
         message: "User not found",
@@ -19,7 +18,6 @@ export default async function updateUser(req, res) {
     }
     
     if (!(await passwordHandler.comparePassword(req.body.password, user.password))) {
-      console.log("Password does not match");
       return res.status(400).json({
         success: false,
         message: "Password does not match",

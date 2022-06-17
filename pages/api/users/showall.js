@@ -11,7 +11,6 @@ export default async function showAllUser(req, res) {
         const users = await User.find({});
         // console.log(users);
         if(users.length === 0) {
-            console.log("No users found");
             return res.status(400).json({
                 success: false,
                 message: "No users found",
