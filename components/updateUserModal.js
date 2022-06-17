@@ -67,7 +67,7 @@ export default function NewUserModal({ show, setShow, user }) {
     };
     if (formValidator(userData)) {
       axios
-        .post("http://localhost:3000/api/users/updatedetails", userData)
+        .post("/api/users/updatedetails", userData)
         .then((res) => {
           if (res.data.success) {
             setSuccessMessage(res.data.message);

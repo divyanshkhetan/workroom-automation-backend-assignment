@@ -20,7 +20,7 @@ export default function DeleteUserModal({ show, setShow, user }) {
   };
 
   async function deleteHandler() {
-    const res = await axios.post("http://localhost:3000/api/users/delete", {
+    const res = await axios.post("/api/users/delete", {
       email: user.email,
     });
 
