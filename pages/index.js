@@ -50,7 +50,7 @@ export default function Home({ users }) {
         className="navbar bg-light"
         style={{ borderBottom: "2px solid black" }}
       >
-        <div className="container-fluid" style={{cursor: 'default'}}>
+        <div className="container-fluid" style={{cursor: 'pointer'}}>
           <h2 onClick={() => refreshData()}>Workroom Automation</h2>
           <button type="button" className="btn btn-primary" onClick={() => newUserHandler()}>
             Add User
@@ -64,8 +64,8 @@ export default function Home({ users }) {
         <thead>
           <tr style={{ backgroundColor: "#ff8c00" }}>
             <th scope="col">#</th>
-            <th scope="col">F Name</th>
-            <th scope="col">L Name</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
             <th scope="col">Email (key)</th>
             <th scope="col">Age</th>
             <th scope="col">Profession</th>
@@ -85,14 +85,14 @@ export default function Home({ users }) {
                 <td>
                   <button
                     type="button"
-                    className="btn btn-outline-primary"
+                    className="btn btn-outline-primary btn-sm"
                     onClick={() => updateHandler(user)}
                     >
                     Update
                   </button>
                   <button
                     type="button"
-                    className="btn btn-danger"
+                    className="btn btn-danger btn-sm"
                     onClick={() => deleteHandler(user)}
                     >
                     Delete

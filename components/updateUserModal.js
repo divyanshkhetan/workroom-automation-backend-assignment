@@ -4,16 +4,16 @@ import { useState } from "react";
 const classnames = require("classnames");
 const axios = require("axios");
 
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 export default function NewUserModal({ show, setShow, user }) {
   const showHideClassName = show ? "display-block" : "display-none";
   const [fname, setFname] = useState(user.firstName);
   const [lname, setLname] = useState(user.lastName);
-const [email, setEmail] = useState(user.email);
-const [password, setPassword] = useState(null);
-const [age, setAge] = useState(user.age);
-const [profession, setProfession] = useState(user.profession);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState("");
+  const [age, setAge] = useState(user.age);
+  const [profession, setProfession] = useState(user.profession);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const router = useRouter();
@@ -25,14 +25,17 @@ const [profession, setProfession] = useState(user.profession);
     if (password.length < 8) {
       setErrorMessage("Password must be atleast 8 characters");
       return false;
-    } else if (password.search(/[a-z]/i) < 0) {
+    } else if (password.search(/[a-z]/) < 0) {
       setErrorMessage("Password must contain atleast one lowercase letter");
       return false;
-    } else if (password.search(/[A-Z]/i) < 0) {
+    } else if (password.search(/[A-Z]/) < 0) {
       setErrorMessage("Password must contain atleast one uppercase letter");
       return false;
     } else if (password.search(/[0-9]/) < 0) {
       setErrorMessage("Password must contain atleast one number");
+      return false;
+    } else if (password.search(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/) < 0) {
+      setErrorMessage("Password must contain atleast one special character");
       return false;
     } else {
       return true;
@@ -62,7 +65,7 @@ const [profession, setProfession] = useState(user.profession);
     }
   }
 
-  function refreshData () {
+  function refreshData() {
     router.replace(router.asPath);
   }
 
@@ -97,7 +100,10 @@ const [profession, setProfession] = useState(user.profession);
   }
 
   return (
-    <div className={classnames(styles.modal, showHideClassName)} style={{zIndex: '999'}}>
+    <div
+      className={classnames(styles.modal, showHideClassName)}
+      style={{ zIndex: "999" }}
+    >
       <section className={styles.modalMain}>
         <div className={styles.closeButton}>
           <Image
@@ -112,10 +118,12 @@ const [profession, setProfession] = useState(user.profession);
         <div className={styles.modalContent}>
           <form>
             <div className={styles.headingPanel}>
-              <h2>Add User</h2>
+              <h2>Update User</h2>
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="fname">First Name<span className="mandatory">*</span></label>
+              <label htmlFor="fname">
+                First Name<span className="mandatory">*</span>
+              </label>
               <input
                 type="text"
                 id="fname"
@@ -141,7 +149,9 @@ const [profession, setProfession] = useState(user.profession);
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="email">Email<span className="mandatory">*</span></label>
+              <label htmlFor="email">
+                Email<span className="mandatory">*</span>
+              </label>
               <input
                 type="email"
                 id="email"
@@ -154,7 +164,9 @@ const [profession, setProfession] = useState(user.profession);
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="age">Age<span className="mandatory">*</span></label>
+              <label htmlFor="age">
+                Age<span className="mandatory">*</span>
+              </label>
               <input
                 type="number"
                 id="age"
@@ -167,7 +179,9 @@ const [profession, setProfession] = useState(user.profession);
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="profession">Profession<span className="mandatory">*</span></label>
+              <label htmlFor="profession">
+                Profession<span className="mandatory">*</span>
+              </label>
               <input
                 type="text"
                 id="profession"
@@ -180,7 +194,9 @@ const [profession, setProfession] = useState(user.profession);
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="password">Password (to validate)<span className="mandatory">*</span></label>
+              <label htmlFor="password">
+                Password (to validate)<span className="mandatory">*</span>
+              </label>
               <input
                 type="password"
                 id="password"

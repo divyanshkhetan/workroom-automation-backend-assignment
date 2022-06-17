@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 const classnames = require("classnames");
 const axios = require("axios");
 
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 export default function NewUserModal({ show, setShow }) {
   const showHideClassName = show ? "display-block" : "display-none";
@@ -25,14 +25,17 @@ export default function NewUserModal({ show, setShow }) {
     if (password.length < 8) {
       setErrorMessage("Password must be atleast 8 characters");
       return false;
-    } else if (password.search(/[a-z]/i) < 0) {
+    } else if (password.search(/[a-z]/) < 0) {
       setErrorMessage("Password must contain atleast one lowercase letter");
       return false;
-    } else if (password.search(/[A-Z]/i) < 0) {
+    } else if (password.search(/[A-Z]/) < 0) {
       setErrorMessage("Password must contain atleast one uppercase letter");
       return false;
     } else if (password.search(/[0-9]/) < 0) {
       setErrorMessage("Password must contain atleast one number");
+      return false;
+    } else if (password.search(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/) < 0) {
+      setErrorMessage("Password must contain atleast one special character");
       return false;
     } else {
       return true;
@@ -62,7 +65,7 @@ export default function NewUserModal({ show, setShow }) {
     }
   }
 
-  function refreshData () {
+  function refreshData() {
     router.replace(router.asPath);
   }
 
@@ -97,7 +100,10 @@ export default function NewUserModal({ show, setShow }) {
   }
 
   return (
-    <div className={classnames(styles.modal, showHideClassName)} style={{zIndex: '999'}}>
+    <div
+      className={classnames(styles.modal, showHideClassName)}
+      style={{ zIndex: "999" }}
+    >
       <section className={styles.modalMain}>
         <div className={styles.closeButton}>
           <Image
@@ -115,7 +121,9 @@ export default function NewUserModal({ show, setShow }) {
               <h2>Add User</h2>
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="fname">First Name<span className="mandatory">*</span></label>
+              <label htmlFor="fname">
+                First Name<span className="mandatory">*</span>
+              </label>
               <input
                 type="text"
                 id="fname"
@@ -139,7 +147,9 @@ export default function NewUserModal({ show, setShow }) {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="email">Email<span className="mandatory">*</span></label>
+              <label htmlFor="email">
+                Email<span className="mandatory">*</span>
+              </label>
               <input
                 type="email"
                 id="email"
@@ -151,7 +161,9 @@ export default function NewUserModal({ show, setShow }) {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="age">Age<span className="mandatory">*</span></label>
+              <label htmlFor="age">
+                Age<span className="mandatory">*</span>
+              </label>
               <input
                 type="number"
                 id="age"
@@ -163,7 +175,9 @@ export default function NewUserModal({ show, setShow }) {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="profession">Profession<span className="mandatory">*</span></label>
+              <label htmlFor="profession">
+                Profession<span className="mandatory">*</span>
+              </label>
               <input
                 type="text"
                 id="profession"
@@ -175,7 +189,9 @@ export default function NewUserModal({ show, setShow }) {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="password">Password<span className="mandatory">*</span></label>
+              <label htmlFor="password">
+                Password<span className="mandatory">*</span>
+              </label>
               <input
                 type="password"
                 id="password"

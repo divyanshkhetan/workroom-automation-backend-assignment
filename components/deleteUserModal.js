@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 const classnames = require("classnames");
 const axios = require("axios");
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 export default function DeleteUserModal({ show, setShow, user }) {
   const showHideClassName = show ? "display-block" : "display-none";
@@ -17,7 +17,7 @@ export default function DeleteUserModal({ show, setShow, user }) {
 
   const refreshData = () => {
     router.replace(router.asPath);
-  }
+  };
 
   async function deleteHandler() {
     const res = await axios.post("http://localhost:3000/api/users/delete", {
@@ -34,7 +34,10 @@ export default function DeleteUserModal({ show, setShow, user }) {
   }
 
   return (
-    <div className={classnames(styles.modal, showHideClassName)} style={{zIndex: '999'}}>
+    <div
+      className={classnames(styles.modal, showHideClassName)}
+      style={{ zIndex: "999" }}
+    >
       <section className={styles.modalMain}>
         <div className={styles.closeButton}>
           <Image
@@ -46,10 +49,10 @@ export default function DeleteUserModal({ show, setShow, user }) {
           />
         </div>
 
-        <div className={styles.modalContent}>
-          <div className="container">
+        <div className={styles.modalContent} style={{marginBottom: '0px'}}>
+          <div style={{marginTop: '1rem'}}>
             Are you sure you want to delete{" "}
-            <span className="bold"> {user.email}</span>?
+            <strong> {user.email}</strong>?
           </div>
 
           <div style={{ margin: "1rem" }}>
@@ -70,10 +73,10 @@ export default function DeleteUserModal({ show, setShow, user }) {
           </div>
           <div>
             {errorMessage && (
-                <div className="alert alert-danger">{errorMessage}</div>
+              <div className="alert alert-danger">{errorMessage}</div>
             )}
             {successMessage && (
-                <div className="alert alert-success">{successMessage}</div>
+              <div className="alert alert-success">{successMessage}</div>
             )}
           </div>
         </div>

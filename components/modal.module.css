@@ -23,19 +23,20 @@
     display: flex;
     width: 100%;
     justify-content: right;
+    cursor: pointer;
   }
 
   .modalContent{
-    margin: 1rem 1rem 1rem 1rem;
+    margin: 0px 1rem 1rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 1rem;
   }
 
   .headingPanel{
     text-align: center;
     margin: 0.5rem;
+    margin-bottom: 2rem;
     padding: 0px;
   }
 
